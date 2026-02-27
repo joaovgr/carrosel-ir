@@ -9,6 +9,10 @@
       --blue:#0b5bd3;
       --blue2:#083a8c;
       --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --glass: rgba(0,0,0,.35);
+      --border: rgba(255,255,255,.16);
+      --text: rgba(255,255,255,.94);
+      --muted: rgba(255,255,255,.78);
     }
     *{box-sizing:border-box}
     body{
@@ -39,23 +43,69 @@
       min-width: 100%;
       position: relative;
       aspect-ratio: 16/9;
-      background: #0a1020;
+      /* fundo premium para quando usar contain */
+      background:
+        radial-gradient(900px 400px at 20% 10%, rgba(11,91,211,.22), transparent 60%),
+        radial-gradient(900px 420px at 80% 15%, rgba(8,58,140,.18), transparent 65%),
+        linear-gradient(180deg, #071022 0%, #070b14 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 14px; /* dá “respiro” e evita encostar borda */
     }
 
+    /* ✅ AQUI está o pulo do gato: nada de corte */
     .slide img{
       width:100%;
       height:100%;
-      object-fit: cover;
+      object-fit: contain;     /* mostra a imagem inteira */
+      object-position: center; /* centraliza */
       display:block;
+      border-radius: 14px;
+      /* deixa a imagem com cara premium no fundo escuro */
+      filter: drop-shadow(0 16px 26px rgba(0,0,0,.35));
     }
 
-    .overlay{
+    /* legenda com nome */
+    .caption{
       position:absolute;
-      inset:0;
-      background: linear-gradient(90deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.15) 55%, rgba(0,0,0,0) 100%);
-      pointer-events:none;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.26) 100%);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(6px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
     }
 
+    .caption .name{
+      font-weight: 850;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 75%;
+    }
+
+    .caption .tag{
+      font-size: 12px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,.14);
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      white-space: nowrap;
+    }
+
+    /* setas */
     .nav{
       position:absolute;
       inset:0;
@@ -85,11 +135,12 @@
 
     .btn svg{ width:18px; height:18px; fill:none; stroke:#fff; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
 
+    /* bolinhas */
     .dots{
       position:absolute;
       left: 50%;
       transform: translateX(-50%);
-      bottom: 10px;
+      top: 10px;
       display:flex;
       gap:8px;
       padding: 8px 10px;
@@ -117,7 +168,10 @@
     @media (max-width: 520px){
       body{ padding: 8px; }
       .btn{ width:40px; height:40px; border-radius: 14px; }
-      .dots{ bottom: 8px; }
+      .dots{ top: 8px; }
+      .slide{ padding: 10px; }
+      .caption{ left: 10px; right: 10px; bottom: 10px; }
+      .caption .name{ font-size: 13.5px; max-width: 70%; }
     }
 
     @media (prefers-reduced-motion: reduce){
@@ -130,26 +184,43 @@
 
   <div class="carousel" id="carousel">
     <div class="track" id="track">
-      <!-- SUAS IMAGENS DO GOOGLE DRIVE (links diretos) -->
+
+      <!-- Slide 1 -->
       <div class="slide">
-        <img src="https://lh3.googleusercontent.com/d/1aq5DqgvHQxLC_ci11Os5sdA5dPKDsvRl=w1600" alt="Imagem 1">
-        <div class="overlay"></div>
+        <img src="https://lh3.googleusercontent.com/d/1aq5DqgvHQxLC_ci11Os5sdA5dPKDsvRl=w1600" alt="Foto 1">
+        <div class="caption">
+          <div class="name">NOME DA PESSOA 1</div>
+          <div class="tag">Equipe / Cliente</div>
+        </div>
       </div>
 
+      <!-- Slide 2 -->
       <div class="slide">
-        <img src="https://lh3.googleusercontent.com/d/15iAsKAgMCENzSlvEsKwknMoQbWcH3ehr=w1600" alt="Imagem 2">
-        <div class="overlay"></div>
+        <img src="https://lh3.googleusercontent.com/d/15iAsKAgMCENzSlvEsKwknMoQbWcH3ehr=w1600" alt="Foto 2">
+        <div class="caption">
+          <div class="name">NOME DA PESSOA 2</div>
+          <div class="tag">Equipe / Cliente</div>
+        </div>
       </div>
 
+      <!-- Slide 3 -->
       <div class="slide">
-        <img src="https://lh3.googleusercontent.com/d/1sQxOR5Gn0dLGG6xK503bdq6MBClgn3HG=w1600" alt="Imagem 3">
-        <div class="overlay"></div>
+        <img src="https://lh3.googleusercontent.com/d/1sQxOR5Gn0dLGG6xK503bdq6MBClgn3HG=w1600" alt="Foto 3">
+        <div class="caption">
+          <div class="name">NOME DA PESSOA 3</div>
+          <div class="tag">Equipe / Cliente</div>
+        </div>
       </div>
 
+      <!-- Slide 4 -->
       <div class="slide">
-        <img src="https://lh3.googleusercontent.com/d/1NT75WVj2Oc10JrGTUTZumsTTxRyh_mnC=w1600" alt="Imagem 4">
-        <div class="overlay"></div>
+        <img src="https://lh3.googleusercontent.com/d/1NT75WVj2Oc10JrGTUTZumsTTxRyh_mnC=w1600" alt="Foto 4">
+        <div class="caption">
+          <div class="name">NOME DA PESSOA 4</div>
+          <div class="tag">Equipe / Cliente</div>
+        </div>
       </div>
+
     </div>
 
     <div class="nav">
